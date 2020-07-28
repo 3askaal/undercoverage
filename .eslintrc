@@ -1,0 +1,27 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "airbnb-typescript",
+    "prettier",
+    "prettier/react",
+    "prettier/@typescript-eslint"
+  ],
+  "plugins": [
+    "prettier",
+    "react",
+    "react-hooks",
+    "jsx-a11y",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "no-underscore-dangle": [0],
+    "react/jsx-props-no-spreading": [0],
+    "import/prefer-default-export": [0],
+    "import/no-cycle": [0],
+    "import/no-extraneous-dependencies": [0],
+    "import/no-unresolved": [0]
+  }
+}
