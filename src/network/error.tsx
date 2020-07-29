@@ -1,5 +1,4 @@
 import { onError } from 'apollo-link-error'
-import { history } from '../app/App'
 
 export const errorLink = onError(({ graphQLErrors, networkError }: any) => {
   if (graphQLErrors) {
