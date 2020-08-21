@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { gql, useLazyQuery } from '@apollo/client'
 import { Wrapper, Container, Spacer, Input, Button, Title } from '3oilerplate'
+import FileComponent from '../../components/File/File'
 // import FileComponent from '../../components/File/File'
 
 const GET_REPORT_FILE_HISTORY = gql`
@@ -9,7 +10,7 @@ const GET_REPORT_FILE_HISTORY = gql`
       defaultBranchRef {
         target {
           ... on Commit {
-            history(first: 100, path: "undercoverage") {
+            history(first: 100, path: "undercoverage.json") {
               nodes {
                 author {
                   email
@@ -41,7 +42,7 @@ const GET_SOURCE = gql`
 export const ReportView = () => {
   const [currentOwner, setCurrentOwner] = useState('3askaal')
   const [currentRepo, setCurrentRepo] = useState('undercoverage')
-  const [commits, setCommits] = useState([])
+  const [commits, setCommits] = useState<any>([])
 
   const [fetchReportHistory, { data: reportFileHistory }] = useLazyQuery<any>(
     GET_REPORT_FILE_HISTORY,
@@ -59,18 +60,17 @@ export const ReportView = () => {
       reportFileHistory &&
       reportFileHistory.repository.defaultBranchRef.target.history.nodes.length
     ) {
-      setCommits(
-        reportFileHistory.repository.defaultBranchRef.target.history.nodes.map(
-          ({ oid }: any) => oid,
-        ),
-      )
+      // console.log('commits: ', reportFileHistory.repository.defaultBranchRef.target.history.nodes)
+      console.log(reportFileHistory.repository.defaultBranchRef.target.history.nodes)
+      setCommits(reportFileHistory.repository.defaultBranchRef.target.history.nodes)
     }
+    // console.log('reportFileHistory: ', reportFileHistory)
     // console.log('source: ', sourceFile)
   }, [reportFileHistory])
 
   useEffect(() => {
     if (commits.length) {
-      commits.forEach(({ oid }) => {
+      commits.forEach(async ({ oid }: any) => {
         fetchSourceFile({
           variables: {
             expression: `${oid}:undercoverage.json`,
@@ -80,25 +80,34 @@ export const ReportView = () => {
     }
   }, [commits])
 
+  useEffect(() => {
+    console.log('sourceFile: ', sourceFile)
+  }, [sourceFile])
+
   return (
     <Wrapper style={{ padding: 'm' }}>
       <Container style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <Spacer size="m">
-          <Title level={4}>Pick your Git repository</Title>
-          <Spacer size="xs" style={{ flexDirection: 'row' }}>
-            <Input
-              placeholder="Owner"
-              style={{ flexGrow: 1 }}
-              value={currentOwner}
-              onChange={setCurrentOwner}
-            />
-            <Input
-              placeholder="Repository"
-              style={{ flexGrow: 1 }}
-              value={currentRepo}
-              onChange={setCurrentRepo}
-            />
-            <Button onClick={fetchReportHistory}>Submit</Button>
+        <Spacer size="l">
+          <Spacer size="m">
+            <Title level={4}>Pick your Git repository</Title>
+            <Spacer size="xs" style={{ flexDirection: 'row' }}>
+              <Input
+                placeholder="Owner"
+                style={{ flexGrow: 1 }}
+                value={currentOwner}
+                onChange={setCurrentOwner}
+              />
+              <Input
+                placeholder="Repository"
+                style={{ flexGrow: 1 }}
+                value={currentRepo}
+                onChange={setCurrentRepo}
+              />
+              <Button onClick={fetchReportHistory}>Submit</Button>
+            </Spacer>
+            {/* {commits && commits[0]
+              ? commits[0].files.map((file: any) => <FileComponent file={file} />)
+              : null} */}
           </Spacer>
         </Spacer>
       </Container>
