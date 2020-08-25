@@ -59,7 +59,6 @@ export const ReportView = () => {
   }, [reportFileHistory])
 
   useEffect(() => {
-    console.log(commits)
     async function fetchCommitSource() {
       if (commits.length && !states.sourceFetched) {
         let commitsWithSource = await Promise.all(
