@@ -2,7 +2,6 @@
   "name": "undercoverage",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "dependencies": {
     "3oilerplate": "^0.1.17",
     "@apollo/client": "^3.0.2",
@@ -40,7 +39,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "test:cov": "react-app-rewired test --coverage --watchAll=false",
-    "process": "ts-node -P tsconfig.custom.json ./scripts/undercoverage.ts",
+    "process": "ts-node -P tsconfig.uc.json ./scripts/undercoverage.ts",
     "test:cov:process": "react-app-rewired test --coverage --watchAll=false && npm run process",
     "eject": "react-scripts eject"
   },
