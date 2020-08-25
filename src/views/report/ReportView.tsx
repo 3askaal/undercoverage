@@ -9,7 +9,7 @@ const GET_REPORT_FILE_HISTORY = gql`
       defaultBranchRef {
         target {
           ... on Commit {
-            history(last: 1, path: "undercoverage.json") {
+            history(last: 1, path: "undercoverage/report.json") {
               nodes {
                 author {
                   email
