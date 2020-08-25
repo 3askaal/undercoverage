@@ -2,6 +2,7 @@
   "name": "undercoverage",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "3oilerplate": "^0.1.17",
     "@apollo/client": "^3.0.2",
@@ -22,6 +23,7 @@
     "apollo-link-retry": "^2.2.16",
     "graphql": "^15.3.0",
     "lodash": "^4.17.15",
+    "mkdirp": "^1.0.4",
     "nodegit": "^0.26.5",
     "react": "^16.13.1",
     "react-app-rewire-aliases": "^0.2.0",
@@ -37,8 +39,10 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject",
-    "process": "ts-node ./scripts/undercoverage.ts"
+    "test:cov": "react-app-rewired test --coverage --watchAll=false",
+    "process": "ts-node -P tsconfig.custom.json ./scripts/undercoverage.ts",
+    "test:cov:process": "react-app-rewired test --coverage --watchAll=false && npm run process",
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [
