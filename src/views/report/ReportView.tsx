@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { gql, useLazyQuery, useApolloClient } from '@apollo/client'
 import { Wrapper, Container, Spacer, Input, Button, Title } from '3oilerplate'
 import FileComponent from '../../components/File/File'
-// import FileComponent from '../../components/File/File'
 
 const GET_REPORT_FILE_HISTORY = gql`
   query GetReportFile($owner: String!, $name: String!) {
@@ -10,7 +9,7 @@ const GET_REPORT_FILE_HISTORY = gql`
       defaultBranchRef {
         target {
           ... on Commit {
-            history(first: 100, path: "undercoverage.json") {
+            history(last: 1, path: "undercoverage.json") {
               nodes {
                 author {
                   email
@@ -54,6 +53,7 @@ export const ReportView = () => {
   )
 
   useEffect(() => {
+    console.log(reportFileHistory?.repository?.defaultBranchRef?.target?.history?.nodes)
     if (reportFileHistory?.repository?.defaultBranchRef?.target?.history?.nodes?.length) {
       setCommits(reportFileHistory.repository.defaultBranchRef.target.history.nodes)
     }

@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import { forOwn } from 'lodash'
-import * as mkdirp from 'mkdirp'
+import mkdirp from 'mkdirp'
 import { Repository } from 'nodegit'
 
 const COV_FOLDER_PATH: string = __dirname + '/../coverage/'
@@ -28,10 +28,7 @@ export async function processReport() {
 
   await mkdirp('./undercoverage')
 
-  fs.writeFileSync(
-    `./undercoverage/${gitCommitSha}-${gitBranchName}.json`,
-    JSON.stringify(underCoverageReport),
-  )
+  fs.writeFileSync(`./undercoverage/report.json`, JSON.stringify(underCoverageReport))
 }
 
 function parseCovReport(covReport: any) {
