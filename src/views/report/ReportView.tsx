@@ -53,13 +53,13 @@ export const ReportView = () => {
   )
 
   useEffect(() => {
-    console.log(reportFileHistory?.repository?.defaultBranchRef?.target?.history?.nodes)
     if (reportFileHistory?.repository?.defaultBranchRef?.target?.history?.nodes?.length) {
       setCommits(reportFileHistory.repository.defaultBranchRef.target.history.nodes)
     }
   }, [reportFileHistory])
 
   useEffect(() => {
+    console.log(commits)
     async function fetchCommitSource() {
       if (commits.length && !states.sourceFetched) {
         let commitsWithSource = await Promise.all(
