@@ -9,7 +9,7 @@ const GET_REPORT_FILE_HISTORY = gql`
       defaultBranchRef {
         target {
           ... on Commit {
-            history(last: 1, path: "undercoverage/report.json") {
+            history(first: 100, path: "undercoverage/report.json") {
               nodes {
                 author {
                   email
@@ -69,7 +69,7 @@ export const ReportView = () => {
               variables: {
                 owner: currentOwner,
                 name: currentRepo,
-                expression: `${commit.oid}:undercoverage.json`,
+                expression: `${commit.oid}:undercoverage/report.json`,
               },
             })
 

@@ -1,7 +1,8 @@
-import * as fs from 'fs'
-import { forOwn } from 'lodash'
-import mkdirp from 'mkdirp'
+import fs from 'fs'
 import { Repository } from 'nodegit'
+import { forOwn, includes } from 'lodash'
+import mkdirp from 'mkdirp'
+const rootPath = require('app-root-path') + '/'
 
 const COV_FOLDER_PATH: string = __dirname + '/../coverage/'
 const COV_FILE_PATH: string = COV_FOLDER_PATH + 'coverage-final.json'
@@ -37,6 +38,10 @@ function parseCovReport(covReport: any) {
   forOwn(covReport, (fileCov, filePath) => {
     const fileSrc = fs.readFileSync(filePath, 'utf-8')
 
+    const strippedFilePath: string = includes(filePath, rootPath)
+      ? filePath.split(rootPath)[1]
+      : filePath
+
     const lines: any = fileSrc.split(/\n/).map((lineSrc: string, lineIndex: number) => {
       return {
         index: lineIndex + 1,
@@ -46,7 +51,7 @@ function parseCovReport(covReport: any) {
     })
 
     const file: any = {
-      path: filePath,
+      path: strippedFilePath,
       lines,
       cov: {
         ...fileCov,
