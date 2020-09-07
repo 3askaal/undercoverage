@@ -5,7 +5,6 @@ import { createBrowserHistory } from 'history'
 import { theme as localTheme } from '../style'
 import { ThemeProvider } from 'styled-components'
 import { ReportView } from '../views'
-import deepmerge from 'deepmerge'
 import './fonts.css'
 import { SApp } from './App.styled'
 import { ApolloProvider, ApolloLink, DefaultOptions, ApolloClient } from '@apollo/client'
@@ -42,7 +41,7 @@ const apolloClient = new ApolloClient({
 const App = () => {
   return (
     <ApolloProvider client={apolloClient}>
-      <ThemeProvider theme={deepmerge(theme, localTheme)}>
+      <ThemeProvider theme={{ ...theme, ...localTheme }}>
         <GlobalStyle />
         <SApp>
           <Router history={history}>
