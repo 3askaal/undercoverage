@@ -1,4 +1,5 @@
 export const theme: any = {
+  rootFontSizes: ['8px', '12px', '14px', '16px'],
   colors: {
     primary: '#3e588f',
     primaryDark: '#203562',
