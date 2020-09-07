@@ -10,31 +10,29 @@ const FileComponent = ({ file }: any) => {
     b: true,
   })
 
+  function onFilterChange(value: string) {
+    console.log(value)
+  }
+
   return (
     <SFile>
       <SFileHeader>
         <SFileHeaderPath>{file.path}</SFileHeaderPath>
         <SFileHeaderOptions>
           <Checkbox
-            style={{
-              color: 'indicators.statement',
-            }}
+            s={{ color: 'indicators.statement' }}
             isChecked={activeFilter.s}
             label="Statements"
             onChange={() => setActiveFilter({ ...activeFilter, s: !activeFilter.s })}
           />
           <Checkbox
-            style={{
-              color: 'indicators.function',
-            }}
+            s={{ color: 'indicators.function' }}
             isChecked={activeFilter.f}
             label="Functions"
             onChange={() => setActiveFilter({ ...activeFilter, f: !activeFilter.f })}
           />
           <Checkbox
-            style={{
-              color: 'indicators.branch',
-            }}
+            s={{ color: 'indicators.branch' }}
             isChecked={activeFilter.b}
             label="Branches"
             onChange={() => setActiveFilter({ ...activeFilter, b: !activeFilter.b })}

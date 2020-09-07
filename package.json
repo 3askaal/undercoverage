@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "3oilerplate": "^0.1.17",
+    "3oilerplate": "^0.1.19",
     "@apollo/client": "^3.0.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",

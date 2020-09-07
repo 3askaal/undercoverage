@@ -92,26 +92,31 @@ export const ReportView = () => {
   }, [commits])
 
   return (
-    <Wrapper style={{ padding: 'm' }}>
-      <Container style={{ alignItems: 'center', justifyContent: 'center' }}>
+    <Wrapper s={{ padding: 'm' }}>
+      <Container s={{ alignItems: 'center', justifyContent: 'center', maxWidth: '540px' }}>
         <Spacer size="l">
           <Spacer size="m">
-            {!states.sourceFetched ? <Title level={4}>Pick your Git repository</Title> : null}
-            <Spacer size="xs" style={{ flexDirection: 'row' }}>
-              <Input
-                placeholder="Owner"
-                style={{ flexGrow: 1 }}
-                value={currentOwner}
-                onChange={setCurrentOwner}
-              />
-              <Input
-                placeholder="Repository"
-                style={{ flexGrow: 1 }}
-                value={currentRepo}
-                onChange={setCurrentRepo}
-              />
-              <Button onClick={fetchReportHistory}>Submit</Button>
-            </Spacer>
+            {!states.sourceFetched ? (
+              <>
+                <Title level={4}>Pick your Git repository</Title>
+                <Spacer size="xs" s={{ flexDirection: 'column' }}>
+                  <Input
+                    placeholder="Owner"
+                    s={{ flexGrow: 1 }}
+                    value={currentOwner}
+                    onChange={setCurrentOwner}
+                  />
+                  <Input
+                    placeholder="Repository"
+                    s={{ flexGrow: 1 }}
+                    value={currentRepo}
+                    onChange={setCurrentRepo}
+                  />
+                  <Button onClick={fetchReportHistory}>Go</Button>
+                </Spacer>
+              </>
+            ) : null}
+
             {commits[0]?.data
               ? commits[0].data.files.map((file: any) => <FileComponent file={file} />)
               : null}
