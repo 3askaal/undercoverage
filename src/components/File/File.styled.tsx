@@ -8,7 +8,7 @@ export const SFile = styled.div({
 export const SFileHeader = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  backgroundColor: '#232931',
+  backgroundColor: 'darker',
   color: 'white',
   padding: 's',
   borderTopLeftRadius: 'm',
@@ -17,7 +17,7 @@ export const SFileHeader = styled.div({
 
 export const SFileHeaderPath = styled.div({
   display: 'flex',
-  backgroundColor: '#393e46',
+  backgroundColor: 'dark',
   padding: 'xs',
   marginBottom: 's',
   borderRadius: 's',

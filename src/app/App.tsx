@@ -4,7 +4,7 @@ import { GlobalStyle, theme } from '3oilerplate'
 import { createBrowserHistory } from 'history'
 import { theme as localTheme } from '../style'
 import { ThemeProvider } from 'styled-components'
-import { ReportView } from '../views'
+import { IndexView, ReportView } from '../views'
 import './fonts.css'
 import { SApp } from './App.styled'
 import { ApolloProvider, ApolloLink, DefaultOptions, ApolloClient } from '@apollo/client'
@@ -47,6 +47,9 @@ const App = () => {
           <Router history={history}>
             <Switch>
               <Route exact path="/">
+                <IndexView />
+              </Route>
+              <Route exact path="/:owner/:repo">
                 <ReportView />
               </Route>
             </Switch>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { gql, useLazyQuery, useApolloClient } from '@apollo/client'
-import { Wrapper, Container, Spacer, Input, Button, Title } from '3oilerplate'
+import { Wrapper, Container, Spacer } from '3oilerplate'
 import FileComponent from '../../components/File/File'
 
 const GET_REPORT_FILE_HISTORY = gql`
@@ -40,9 +41,8 @@ const GET_SOURCE = gql`
 
 export const ReportView = () => {
   const client = useApolloClient()
-  const [currentOwner, setCurrentOwner] = useState<string>('3askaal')
+  const { owner: currentOwner, repo: currentRepo } = useParams()
   const [states, setStates] = useState<any>({})
-  const [currentRepo, setCurrentRepo] = useState<string>('undercoverage')
   const [commits, setCommits] = useState<any>([])
 
   const [fetchReportHistory, { data: reportFileHistory }] = useLazyQuery<any>(
@@ -51,6 +51,12 @@ export const ReportView = () => {
       variables: { owner: currentOwner, name: currentRepo },
     },
   )
+
+  useEffect(() => {
+    if (currentOwner && currentRepo) {
+      fetchReportHistory()
+    }
+  }, [currentOwner, currentRepo])
 
   useEffect(() => {
     if (reportFileHistory?.repository?.defaultBranchRef?.target?.history?.nodes?.length) {
@@ -93,30 +99,9 @@ export const ReportView = () => {
 
   return (
     <Wrapper s={{ padding: 'm' }}>
-      <Container s={{ alignItems: 'center', justifyContent: 'center', maxWidth: '540px' }}>
+      <Container s={{ alignItems: 'center', justifyContent: 'center', maxWidth: '800px' }}>
         <Spacer size="l">
           <Spacer size="m">
-            {!states.sourceFetched ? (
-              <>
-                <Title level={4}>Pick your Git repository</Title>
-                <Spacer size="xs" s={{ flexDirection: 'column' }}>
-                  <Input
-                    placeholder="Owner"
-                    s={{ flexGrow: 1 }}
-                    value={currentOwner}
-                    onChange={setCurrentOwner}
-                  />
-                  <Input
-                    placeholder="Repository"
-                    s={{ flexGrow: 1 }}
-                    value={currentRepo}
-                    onChange={setCurrentRepo}
-                  />
-                  <Button onClick={fetchReportHistory}>Go</Button>
-                </Spacer>
-              </>
-            ) : null}
-
             {commits[0]?.data
               ? commits[0].data.files.map((file: any) => <FileComponent file={file} />)
               : null}
