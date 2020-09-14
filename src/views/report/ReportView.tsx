@@ -56,7 +56,7 @@ export const ReportView = () => {
     if (currentOwner && currentRepo) {
       fetchReportHistory()
     }
-  }, [currentOwner, currentRepo])
+  }, [currentOwner, currentRepo, fetchReportHistory])
 
   useEffect(() => {
     if (reportFileHistory?.repository?.defaultBranchRef?.target?.history?.nodes?.length) {
@@ -95,7 +95,7 @@ export const ReportView = () => {
     }
 
     fetchCommitSource()
-  }, [commits])
+  }, [commits, client, currentOwner, currentRepo, states.sourceFetched])
 
   return (
     <Wrapper s={{ padding: 'm' }}>
