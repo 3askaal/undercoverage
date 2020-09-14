@@ -10,10 +10,6 @@ const FileComponent = ({ file }: any) => {
     b: true,
   })
 
-  function onFilterChange(value: string) {
-    console.log(value)
-  }
-
   return (
     <SFile>
       <SFileHeader>
@@ -43,32 +39,6 @@ const FileComponent = ({ file }: any) => {
         <SourceComponent file={file} activeFilter={activeFilter} />
       </SFileSource>
     </SFile>
-    // <div className="File">
-    //   <div className="FileHeader">
-    //     <div className="FileHeaderPath">{file.path}</div>
-    //     <div className="FileHeaderOptions">
-    //       <div
-    //         className={classNames('FileHeaderOptionsOption is-s', activeFilter.s && 'is-active')}
-    //         onClick={() => setActiveFilter({ ...activeFilter, s: !activeFilter.s })}
-    //       >
-    //         <span className="FileHeaderOptionsOptionIndicator is-s"></span>
-    //       </div>
-    //       <div
-    //         className={classNames('FileHeaderOptionsOption is-f', activeFilter.f && 'is-active')}
-    //         onClick={() => setActiveFilter({ ...activeFilter, f: !activeFilter.f })}
-    //       >
-    //         <span className="FileHeaderOptionsOptionIndicator is-f"></span>
-    //       </div>
-    //       <div
-    //         className={classNames('FileHeaderOptionsOption is-b', activeFilter.b && 'is-active')}
-    //         onClick={() => setActiveFilter({ ...activeFilter, b: !activeFilter.b })}
-    //       >
-    //         <span className="FileHeaderOptionsOptionIndicator is-b"></span>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <SourceComponent file={file} activeFilter={activeFilter} />
-    // </div>
   )
 }
 
