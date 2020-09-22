@@ -41,7 +41,7 @@ const GET_SOURCE = gql`
 
 export const ReportView = () => {
   const client = useApolloClient()
-  const { owner: currentOwner, repo: currentRepo } = useParams()
+  const { owner: currentOwner, repo: currentRepo }: any = useParams()
   const [states, setStates] = useState<any>({})
   const [commits, setCommits] = useState<any>([])
 
